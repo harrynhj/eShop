@@ -4,12 +4,16 @@ services:
     build:
       context: .
       dockerfile: ProductService.API/Dockerfile
+    ports:
+      - 11530:8080
 
   orderservice.api:
     image: ${DOCKER_REGISTRY-}orderserviceapi
     build:
       context: .
       dockerfile: OrderService.API/Dockerfile
+    ports:
+      - 11531:8080
 
 
   shippingservice.api:
@@ -17,6 +21,8 @@ services:
     build:
       context: .
       dockerfile: ShippingService.API/Dockerfile
+    ports:
+      - 11532:8080
 
 
   reviewservice.api:
@@ -24,6 +30,8 @@ services:
     build:
       context: .
       dockerfile: ReviewService.API/Dockerfile
+    ports:
+      - 11533:8080
 
 
   promotionservice.api:
@@ -31,4 +39,6 @@ services:
     build:
       context: .
       dockerfile: PromotionService.API/Dockerfile
+    ports:
+      - 11534:8080
 
