@@ -1,8 +1,15 @@
+using Microsoft.EntityFrameworkCore;
+using ReviewService.Infrastructure.Data;
+
 var builder = WebApplication.CreateBuilder(args);
 
 
 builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
+builder.Services.AddDbContext<ReviewDbContext>(options =>
+{
+    options.UseSqlServer(builder.Configuration.GetConnectionString("ReviewDbConnection"));
+});
 
 var app = builder.Build();
 
