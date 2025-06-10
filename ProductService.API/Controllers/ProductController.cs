@@ -13,14 +13,14 @@ namespace ProductService.API.Controllers
             _productService = Productservices;
         }
 
-        [HttpGet("Product/GetListProducts")]
+        [HttpGet("api/Product/GetListProducts")]
         public async Task<IActionResult> GetListProducts(int page = 1, int category = -1)
         {
             var products = await _productService.GetListProducts(page, category);
             return Ok(products);
         }
 
-        [HttpGet("Product/GetProductById")]
+        [HttpGet("api/Product/GetProductById")]
         public async Task<IActionResult> GetProductById(int id)
         {
             var product = await _productService.GetProductById(id);
@@ -32,7 +32,7 @@ namespace ProductService.API.Controllers
         }
 
         [Authorize]
-        [HttpPost("Product/Save")]
+        [HttpPost("api/Product/Save")]
         public async Task<IActionResult> SaveProduct(ProductModel model)
         {
             var result = await _productService.SaveProduct(model);
@@ -44,7 +44,7 @@ namespace ProductService.API.Controllers
         }
 
         [Authorize]
-        [HttpPut("Product/Update")]
+        [HttpPut("api/Product/Update")]
         public async Task<IActionResult> UpdateProduct(ProductModel model)
         {
             var result = await _productService.UpdateProduct(model);
@@ -56,7 +56,7 @@ namespace ProductService.API.Controllers
         }
 
         [Authorize]
-        [HttpPut("Product/InActive")]
+        [HttpPut("api/Product/InActive")]
         public async Task<IActionResult> InactiveProduct(int id)
         {
             var result = await _productService.InactiveProduct(id);
@@ -67,14 +67,14 @@ namespace ProductService.API.Controllers
             return NotFound($"Product with ID {id} not found.");
         }
 
-        [HttpGet("Product/GetProductByCategoryId")]
+        [HttpGet("api/Product/GetProductByCategoryId")]
         public async Task<IActionResult> GetProductByCategoryId(int categoryId)
         {
             var products = await _productService.GetProductsByCategoryId(categoryId);
             return Ok(products);
         }
 
-        [HttpGet("Product/GetProductByName")]
+        [HttpGet("api/Product/GetProductByName")]
         public async Task<IActionResult> GetProductByName(string name)
         {
             var products = await _productService.GetProductsByName(name);
@@ -82,7 +82,7 @@ namespace ProductService.API.Controllers
         }
 
         [Authorize]
-        [HttpDelete("Product/DeleteProduct")]
+        [HttpDelete("api/Product/DeleteProduct")]
         public async Task<IActionResult> DeleteProduct(int id)
         {
             var result = await _productService.DeleteProduct(id);

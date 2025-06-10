@@ -12,7 +12,7 @@ namespace ProductService.API.Controllers
             _productService = productService;
         }
 
-        [HttpPost("VariationVlue/Save")]
+        [HttpPost("api/VariationVlue/Save")]
         public async Task<IActionResult> SaveVariationValue(VariationValueModel model)
         {
             var result = await _productService.SaveVariationValue(model);
@@ -23,7 +23,7 @@ namespace ProductService.API.Controllers
             return BadRequest("Failed to save variation value");
         }
 
-        [HttpGet("VariationValue/GetVariationId")]
+        [HttpGet("api/VariationValue/GetVariationId")]
         public async Task<IActionResult> GetVariationValues()
         {
             var variationValues = await _productService.GetVariationValues();

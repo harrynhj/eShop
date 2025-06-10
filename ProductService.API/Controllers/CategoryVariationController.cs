@@ -14,7 +14,7 @@ namespace ProductService.API.Controllers
         }
 
         [Authorize]
-        [HttpPost("CategoryVariation/Save")]
+        [HttpPost("api/CategoryVariation/Save")]
         public async Task<IActionResult> SaveCategoryVariation(CategoryVariationRequestModel model)
         {
             var result = await _productService.SaveCategoryVariance(model);
@@ -25,14 +25,14 @@ namespace ProductService.API.Controllers
             return BadRequest("Failed to save category variation");
         }
 
-        [HttpGet("CategoryVariation/GetAll")]
+        [HttpGet("api/CategoryVariation/GetAll")]
         public async Task<IActionResult> GetAllCategoryVariations()
         {
             var categoryVariations = await _productService.GetAllCategoryVariance();
             return Ok(categoryVariations);
         }
 
-        [HttpGet("CategoryVariation/GetCategoryVariationById")]
+        [HttpGet("api/CategoryVariation/GetCategoryVariationById")]
         public async Task<IActionResult> GetCategoryVariationById(int id)
         {
             var categoryVariation = await _productService.GetCategoryVarianceById(id);
@@ -43,7 +43,7 @@ namespace ProductService.API.Controllers
             return NotFound($"Category variation with ID {id} not found.");
         }
 
-        [HttpGet("CategoryVariation/GetCategoryVariationByCategoryId")]
+        [HttpGet("api/CategoryVariation/GetCategoryVariationByCategoryId")]
         public async Task<IActionResult> GetCategoryVariationByCategoryId(int id)
         {
             var categoryVariations = await _productService.GetAllCategoryVarianceByCategoryId(id);
@@ -55,7 +55,7 @@ namespace ProductService.API.Controllers
         }
 
         [Authorize]
-        [HttpDelete("CategoryVariation/Delete")]
+        [HttpDelete("api/CategoryVariation/Delete")]
         public async Task<IActionResult> DeleteCategoryVariation(int id)
         {
             var result = await _productService.DeleteCategoryVariance(id);

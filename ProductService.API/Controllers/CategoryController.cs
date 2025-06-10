@@ -17,7 +17,7 @@ namespace ProductService.API.Controllers
             
         }
         [Authorize]
-        [HttpPost("Category/SaveCategory")]
+        [HttpPost("api/Category/SaveCategory")]
         public async Task<IActionResult> SaveCategory(CategoryRequestModel model) { 
             var result = await _ProductServices.SaveCategory(model);
             if (result > 0)
@@ -27,14 +27,14 @@ namespace ProductService.API.Controllers
             return BadRequest("Failed to save category");
         }
 
-        [HttpGet("Category/GetAllCategory")]
+        [HttpGet("api/Category/GetAllCategory")]
         public async Task<IActionResult> GetAllCategory()
         {
             var categories = await _ProductServices.GetAllCategory();
             return Ok(categories);
         }
 
-        [HttpGet("Category/GetCategoryById")]
+        [HttpGet("api/Category/GetCategoryById")]
         public async Task<IActionResult> GetCategoryById(int id)
         {
             var category = await _ProductServices.GetCategoryById(id);
@@ -46,7 +46,7 @@ namespace ProductService.API.Controllers
         }
 
         [Authorize]
-        [HttpDelete("Category/Delete")]
+        [HttpDelete("api/Category/Delete")]
         public async Task<IActionResult> DeleteCategory(int id)
         {
             var result = await _ProductServices.DeleteCategory(id);
@@ -57,7 +57,7 @@ namespace ProductService.API.Controllers
             return NotFound($"Category with ID {id} not found.");
         }
 
-        [HttpGet("Category/GetCategoryByParentCategoryId")]
+        [HttpGet("api/Category/GetCategoryByParentCategoryId")]
         public async Task<IActionResult> GetCategoryByParentCategoryId(int id)
         {
             var categories = await _ProductServices.GetCategoryByParentCategoryId(id);

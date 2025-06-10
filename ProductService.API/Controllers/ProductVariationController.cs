@@ -13,7 +13,7 @@ namespace ProductService.API.Controllers
             _productService = productService;
         }
 
-        [HttpPost("ProductVariation/Save")]
+        [HttpPost("api/ProductVariation/Save")]
         public async Task<IActionResult> SaveProductVariation(ProductVariationModel model)
         {
             var result = await _productService.SaveProductVariation(model);
@@ -24,7 +24,7 @@ namespace ProductService.API.Controllers
             return BadRequest("Failed to save product variation");
         }
 
-        [HttpGet("ProductVariation/GetProductVariation")]
+        [HttpGet("api/ProductVariation/GetProductVariation")]
         public async Task<IActionResult> GetProductVariation()
         {
             var variations = await _productService.GetProductVariation();
