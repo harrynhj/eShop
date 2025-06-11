@@ -14,7 +14,7 @@ namespace ReviewService.ApplicationCore.Models
         public string CustomerName { get; set; }
         public int? ProductId { get; set; }
         public string ProductName { get; set; }
-        public decimal Rating { get; set; } = 0;
+        public int Rating { get; set; } = 0;
         public string Comment { get; set; }
         public DateTime ReviewDate { get; set; }
     }

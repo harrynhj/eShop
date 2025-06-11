@@ -3,7 +3,6 @@ using ReviewService.ApplicationCore.Repositories;
 using ReviewService.ApplicationCore.Services;
 using ReviewService.ApplicationCore.Entities;
 
-
 namespace ReviewService.Infrastructure.Services
 {
     public class CustomerReviewService : IReviewService
@@ -15,47 +14,147 @@ namespace ReviewService.Infrastructure.Services
             _reviewRepository = reviewRepository;
         }
 
-        public Task<int> CreateReview(CustomerReviewRequestModel model)
+        public async Task<CustomerReviewViewModel> ApproveReview(int reviewId)
         {
-            throw new NotImplementedException();
+            var res =  await _reviewRepository.GetById(reviewId);
+            if (res == null)
+            {
+                return null;
+            }
+            return ReviewEntityToModel(res);
+
         }
 
-        public async Task<List<CustomerReviewViewModel>> GetAllReviews()
+        public async Task<CustomerReviewViewModel> CreateReview(CustomerReviewRequestModel model, int orderId)
         {
-            var reviews = await _reviewRepository.GetAll();
+            CustomerReview newRevew = new CustomerReview
+            {
+                CustomerName = model.CustomerName,
+                OrderId = orderId,
+                ProductId = model.ProductId,
+                ProductName = model.ProductName,
+                Comment = model.Comment,
+                ReviewDate = DateTime.UtcNow,
+                OrderDate = DateTime.Now,
+                RatingValue = model.RatingValue
+            };
+            var res = await _reviewRepository.Insert(newRevew);
+            if (res == null)
+            {
+                return null;
+            }
+            return ReviewEntityToModel(res);
 
-            var result = reviews.Select(review => new CustomerReviewViewModel
+        }
+
+        public async Task<CustomerReviewViewModel> DeleteReview(int reviewId)
+        {
+            var result = await _reviewRepository.DeleteById(reviewId);
+            if (result == null)
+            {
+                return null;
+            }
+            return ReviewEntityToModel(result);
+        }
+
+        public async Task<CustomerReviewViewModel> GetMyReviews(int orderId, int CustId)
+        {
+            var result = await _reviewRepository.GetReviewByOrderId(orderId, CustId);
+            if (result == null)
+            {
+                return null;
+            }
+            return ReviewEntityToModel(result);
+        }
+
+        public async Task<CustomerReviewViewModel> GetReviewById(int reviewId)
+        {
+            var result = await _reviewRepository.GetById(reviewId);
+            if (result == null)
+            {
+                return null;
+            }
+            return ReviewEntityToModel(result);
+        }
+
+        public async Task<ICollection<CustomerReviewViewModel>> GetReviewsByProductId(int productId)
+        {
+            var result = await _reviewRepository.GetReviewsByProductId(productId);
+            if (result == null || !result.Any())
+            {
+                return new List<CustomerReviewViewModel>();
+            }
+            return result.Select(r => ReviewEntityToModel(r)).ToList();
+        }
+
+        public async Task<ICollection<CustomerReviewViewModel>> GetReviewsByUserId(int userId)
+        {
+            var result = await _reviewRepository.GetReviewsByUserId(userId);
+            if (result == null || !result.Any())
+            {
+                return new List<CustomerReviewViewModel>();
+            }
+            return result.Select(r => ReviewEntityToModel(r)).ToList();
+        }
+
+        public async Task<ICollection<CustomerReviewViewModel>> GetReviewsByYear(DateTime year)
+        {
+            var result = await _reviewRepository.GetReviewsByYear(year);
+            if (result == null || !result.Any())
+            {
+                return new List<CustomerReviewViewModel>();
+            }
+            return result.Select(r => ReviewEntityToModel(r)).ToList();
+        }
+
+        public async Task<CustomerReviewViewModel> RejectReview(int reviewId)
+        {
+            var res = await _reviewRepository.GetById(reviewId);
+            if (res == null)
+            {
+                return null;
+            }
+            return ReviewEntityToModel(res);
+        }
+
+        public async Task<CustomerReviewViewModel> UpdateReview(CustomerReviewRequestModel model, int reviewId)
+        {
+            CustomerReview newRevew = new CustomerReview
+            {
+                Id = reviewId,
+                CustomerName = model.CustomerName,
+                OrderId = model.OrderId,
+                ProductId = model.ProductId,
+                ProductName = model.ProductName,
+                Comment = model.Comment,
+                ReviewDate = DateTime.UtcNow,
+                OrderDate = DateTime.Now,
+                RatingValue = model.RatingValue
+            };
+            var res = await _reviewRepository.Update(newRevew);
+            if (res == null)
+            {
+                return null;
+            }
+            return ReviewEntityToModel(res);
+        }
+
+        public CustomerReviewViewModel ReviewEntityToModel(CustomerReview review)
+        {
+            return new CustomerReviewViewModel
             {
                 Id = review.Id,
-                OrderId = review.OrderId,
-                OrderDate = review.OrderDate,
                 CustomerName = review.CustomerName,
+                OrderId = review.OrderId,
                 ProductId = review.ProductId,
                 ProductName = review.ProductName,
-                Rating = review.RatingValue,
                 Comment = review.Comment,
-                ReviewDate = review.ReviewDate
-            }).ToList();
+                ReviewDate = review.ReviewDate,
+                OrderDate = review.OrderDate,
+                Rating = review.RatingValue,
 
-
-            return result;
+            };
         }
 
-        public Task<int> UpdateReview(CustomerReviewRequestModel model)
-        {
-            //var result = _reviewRepository.Update(new CustomerReview
-            //{
-            //    CustomerId = model.CustomerId,
-            //    CustomerName = model.CustomerName,
-            //    OrderId = model.OrderId,
-            //    ProductId = model.ProductId,
-            //    ProductName = model.ProductName,
-            //    RatingValue = model.RatingValue,
-            //    Comment = model.Comment,
-            //    ReviewDate = model.ReviewDate
-            //});
-
-            throw new NotImplementedException();
-        }
     }
 }

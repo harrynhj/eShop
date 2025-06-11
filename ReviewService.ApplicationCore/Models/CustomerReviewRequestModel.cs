@@ -16,17 +16,17 @@ namespace ReviewService.ApplicationCore.Models
         [MaxLength(256)]
         public string CustomerName { get; set; }
 
-        public string? OrderId { get; set; }
+        public int OrderId { get; set; }
 
-        public string? ProductId { get; set; }
+        public int ProductId { get; set; }
 
         [Required]
         [MaxLength(255)]
         public string ProductName { get; set; }
 
         [Required]
-        [Range(1.0, 5.0)]
-        public double RatingValue { get; set; }
+        [Range(1, 5)]
+        public int RatingValue { get; set; }
 
         [Required]
         [MaxLength(500)]
