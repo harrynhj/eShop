@@ -4,8 +4,6 @@ namespace ShippingService.ApplicationCore.Models
 {
     public class ShipperRequestModel
     {
-        public int Id { get; set; }
-
         [Required]
         [StringLength(256, MinimumLength = 2)]
         public string Name { get; set; }

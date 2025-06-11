@@ -15,11 +15,11 @@ var builder = WebApplication.CreateBuilder(args);
 
 
 
-//builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
-//builder.Services.AddScoped<IOrderRepository, OrderRepository>();
-//builder.Services.AddScoped<IPaymentRepository, PaymentRepository>();
-//builder.Services.AddScoped<IShoppingCartRepository, ShoppingCartRepository>();
-//builder.Services.AddScoped<IOrderService, OrderServices>();
+builder.Services.AddScoped<IRegionRepository, RegionRepository>();
+builder.Services.AddScoped<IShipperRegionRepository, ShipperRegionRepository>();
+builder.Services.AddScoped<IShipperRepository, ShipperRepository>();
+builder.Services.AddScoped<IShippingDetailsRepository, ShippingDetailsRepository>();
+builder.Services.AddScoped<IShippingService, ShippingServices>();
 
 
 builder.Services.AddAuthentication(options =>
