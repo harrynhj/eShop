@@ -1,8 +1,16 @@
 using Microsoft.EntityFrameworkCore;
 using PromotionService.Infrastructure.Data;
+using PromotionService.ApplicationCore.Repositories;
+using PromotionService.ApplicationCore.Services;
+using PromotionService.Infrastructure.Repositories;
+using PromotionService.Infrastructure.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
+
+builder.Services.AddScoped<IPromotionDetailRepository, PromotionDetailRepository>();
+builder.Services.AddScoped<IPromotionSaleRepository, PromotionSaleRepository>();
+builder.Services.AddScoped<IPromotionService, PromotionServices>();
 
 builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();

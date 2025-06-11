@@ -1,15 +1,15 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using ReviewService.ApplicationCore.Repositories;
-using ReviewService.Infrastructure.Data;
+using PromotionService.ApplicationCore.Repositories;
+using PromotionService.Infrastructure.Data;
 
-namespace ReviewService.Infrastructure.Repositories
+namespace PromotionService.Infrastructure.Repositories
 {
     public class BaseRepository<T> : IBaseRepository<T> where T : class
     {
-        protected readonly ReviewDbContext _DbContext;
-        public BaseRepository(ReviewDbContext ReviewDbContext)
+        protected readonly PromotionDbContext _DbContext;
+        public BaseRepository(PromotionDbContext PromotionDbContext)
         {
-            _DbContext = ReviewDbContext;
+            _DbContext = PromotionDbContext;
         }
 
         public async Task<T> Insert(T entity)
