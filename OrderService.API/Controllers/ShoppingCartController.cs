@@ -7,9 +7,9 @@ namespace OrderService.API.Controllers
 {
     public class ShoppingCartController : ControllerBase
     {
-        private readonly OrderServices _orderService;
+        private readonly IOrderService _orderService;
         
-        public ShoppingCartController(OrderServices orderService)
+        public ShoppingCartController(IOrderService orderService)
         {
             _orderService = orderService;
         }

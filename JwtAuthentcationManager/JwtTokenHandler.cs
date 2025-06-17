@@ -25,20 +25,14 @@ namespace JwtAuthentcationManager
             };
         }
 
-        public AuthenticationResponse GetToken(AuthenticationRequest request) {
-            if (string.IsNullOrEmpty(request.UserName) || string.IsNullOrEmpty(request.Password)) return null;
+        public AuthenticationResponse GetToken(string username, string role) {
 
-            var account = userAccounts
-                .Where(x => x.UserName == request.UserName && x.Password == request.Password)
-                .FirstOrDefault();
-
-            if (account == null) return null;
 
             var tokenExpiryTimeStamp = DateTime.Now.AddMinutes(JWT_TOKEN_VALIDITY_MINS);
             var tokenKey = Encoding.ASCII.GetBytes(JWT_SECURITY_KEY);
             var claimsIdentity = new ClaimsIdentity(new List<Claim> {
-                new Claim(ClaimTypes.Name, request.UserName),
-                new Claim(ClaimTypes.Role, account.Role),
+                new Claim(ClaimTypes.Name, username),
+                new Claim(ClaimTypes.Role, role),
             });
 
             var signingCredential = new SigningCredentials(new SymmetricSecurityKey(tokenKey), SecurityAlgorithms.HmacSha256Signature);
@@ -56,7 +50,7 @@ namespace JwtAuthentcationManager
 
             return new AuthenticationResponse
             {
-                Username = request.UserName,
+                Username = username,
                 Token = token,
                 EpiresIn = (int)tokenExpiryTimeStamp.Subtract(DateTime.Now).TotalSeconds
             };

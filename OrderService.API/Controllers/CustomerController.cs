@@ -7,9 +7,9 @@ namespace OrderService.API.Controllers
 {
     public class CustomerController : ControllerBase
     {
-        private readonly OrderServices _orderService;
+        private readonly IOrderService _orderService;
 
-        public CustomerController(OrderServices orderService)
+        public CustomerController(IOrderService orderService)
         {
             _orderService = orderService;
         }

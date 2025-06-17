@@ -8,7 +8,8 @@
         "orderservice.api": "StartDebugging",
         "shippingservice.api": "StartDebugging",
         "reviewservice.api": "StartDebugging",
-        "promotionservice.api": "StartDebugging"
+        "promotionservice.api": "StartDebugging",
+        "authentication.api": "StartDebugging"
       }
     }
   }

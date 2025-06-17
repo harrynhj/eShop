@@ -8,8 +8,8 @@ namespace OrderService.API.Controllers
 {
     public class PaymentController : ControllerBase
     {
-        private readonly OrderServices _orderService;
-        public PaymentController(OrderServices orderService)
+        private readonly IOrderService _orderService;
+        public PaymentController(IOrderService orderService)
         {
             _orderService = orderService;
         }

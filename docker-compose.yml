@@ -42,3 +42,11 @@ services:
     ports:
       - 11534:8080
 
+
+  authentication.api:
+    image: ${DOCKER_REGISTRY-}authenticationapi
+    build:
+      context: .
+      dockerfile: Authentication.API/Dockerfile
+    ports:
+      - 11535:8080
